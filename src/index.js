@@ -18,6 +18,17 @@ app.get('/notes', (req, res) => {
   return res.json(notes);
 })
 
+app.get('/notes/:id', (req, res) => {
+  const noteId = req.params.id;
+
+  const note = notes.find((note) => note.id === noteId);
+  if (!note){
+    return res.status(404).json({message: "nota não encontrada!!"})
+  }
+
+  return res.status(200).json({noteId, note});
+})
+
 // manipulando a rota para que nela seja pego o corpo dela(body) e retorne...
 // ... mensagens para cada erro ou sucesso, caso a nota não seja preenchida ...
 // ... retorna um erro e caso tenha uma nota exatamente igual, retorna um aviso.
